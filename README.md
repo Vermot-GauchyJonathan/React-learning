@@ -2,15 +2,15 @@
 
 ## Upgrade 
 
-### Pour le coup actuel uniquement, affichez « Vous êtes au coup #… » plutôt qu’un bouton.
+### 1 Pour le coup actuel uniquement, affichez « Vous êtes au coup #… » plutôt qu’un bouton.
 
-### Remaniez Board pour qu’il utilise deux boucles au lieu de coder les rangées et cases du plateau en dur.
+### 2 Remaniez Board pour qu’il utilise deux boucles au lieu de coder les rangées et cases du plateau en dur.
 
-### Ajoutez un bouton de bascule qui permet de trier les coups par ordre croissant (du premier au dernier) ou décroissant (du dernier au premier).
+### 3 Ajoutez un bouton de bascule qui permet de trier les coups par ordre croissant (du premier au dernier) ou décroissant (du dernier au premier).
 
-### Lorsqu’un joueur gagne, mettez en exergue les trois cases qui constituent sa victoire (et si personne ne gagne, affichez un message indiquant un match nul).
+### 4 Lorsqu’un joueur gagne, mettez en exergue les trois cases qui constituent sa victoire (et si personne ne gagne, affichez un message indiquant un match nul).
 
-### Affichez l’emplacement de chaque coup (ligne, colonne) dans l’historique des coups joués.
+### 5 Affichez l’emplacement de chaque coup (ligne, colonne) dans l’historique des coups joués.
 
 ## Available Scripts
 
