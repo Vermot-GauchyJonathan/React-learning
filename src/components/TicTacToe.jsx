@@ -45,14 +45,23 @@ export default function Game() {
     });
     
 
-    function sortMoves(){
-      const listMoves = [...moves];      
-      listMoves.sort(function (a, b) {
-        return b.key - a.key;
-      });
+    // function sortMoves(){
+    //   const listMoves = [...moves];      
+    //   listMoves.sort(function (a, b) {
+    //     return b.key - a.key;
+    //   });
 
+    //   setSortedDesc(!sortedDesc);
+    //   setSortedMoves(listMoves);
+    // }
+
+    const listMoves = [...moves];      
+    listMoves.sort(function (a, b) {
+      return b.key - a.key;
+    });
+
+    function sortMoves(){
       setSortedDesc(!sortedDesc);
-      setSortedMoves(listMoves);
     }
 
     const { winner, winningSquares } = calculateWinner(currentSquares);
@@ -65,7 +74,7 @@ export default function Game() {
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} winningSquares={winningSquares} />
               </div>
               <div className="game-info col-3">
-                <ul>{sortedDesc ? sortedMoves : moves}</ul>
+                <ul>{sortedDesc ? listMoves : moves}</ul>
               </div>
               <div className="game-option col-2">
                 <button onClick={sortMoves}>Trier mouvements</button>
