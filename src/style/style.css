@@ -77,6 +77,11 @@ body {
   display: table;
 }
 
+.winning-square{
+  border: 1px solid black;
+  background: lightgreen;
+}
+
 .status {
   margin-bottom: 10px;
 }

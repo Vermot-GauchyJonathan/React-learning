@@ -36,7 +36,7 @@ export default function Game() {
       }
   
       return (
-        <li key={move} className="list-style">
+        <li key={move} >
           <button onClick={() => jumpTo(move)}>{description}</button>
         </li>
       );
@@ -53,12 +53,12 @@ export default function Game() {
       setSortedMoves(listMoves);
     }
 
-
+    const { winner, winningSquares } = calculateWinner(currentSquares);
   
     return (
       <div className="game">
         <div className="game-board">
-          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} winningSquares={winningSquares} />
         </div>
         <div className="game-info">
           <ul>{sortedDesc ? sortedMoves : moves}</ul>
@@ -70,17 +70,20 @@ export default function Game() {
     );
   }
 
-function Square({ value, onSquareClick }) {
+function Square({ value, onSquareClick, isWinningSquare }) {
     return (
-      <button className="square" onClick={onSquareClick}>
+      <button 
+        className={`square ${isWinningSquare ? 'winning-square' : ''}`} 
+        onClick={onSquareClick}
+      >
         {value}
       </button>
     );
   }
   
-  function Board({ xIsNext, squares, onPlay }) {
+  function Board({ xIsNext, squares, onPlay, winningSquares }) {
     function handleClick(i) {
-      if (calculateWinner(squares) || squares[i]) {
+      if (winningSquares.length > 0 || squares[i]) {
         return;
       }
       const nextSquares = squares.slice();
@@ -92,7 +95,7 @@ function Square({ value, onSquareClick }) {
       onPlay(nextSquares);
     }
   
-    const winner = calculateWinner(squares);
+    const winner = calculateWinner(squares).winner;
     let status;
     if (winner) {
       status = winner + ' a gagné';
@@ -111,6 +114,7 @@ function Square({ value, onSquareClick }) {
             key={squareIndex}
             value={squares[squareIndex]}
             onSquareClick={() => handleClick(squareIndex)}
+            isWinningSquare={winningSquares.includes(squareIndex)}
             />
         );
         }
@@ -164,8 +168,8 @@ function Square({ value, onSquareClick }) {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        return { winner: squares[a], winningSquares: lines[i] };
       }
     }
-    return null;
+    return { winner: null, winningSquares: [] };
   }
