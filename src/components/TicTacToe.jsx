@@ -4,7 +4,9 @@ import { useState } from "react";
 
 
 export default function Game() {
+    const [sortedDesc, setSortedDesc] = useState(false);
     const [history, setHistory] = useState([Array(9).fill(null)]);
+    const [sortedMoves, setSortedMoves] = useState(...history);
     const [currentMove, setCurrentMove] = useState(0);
     const xIsNext = currentMove % 2 === 0;
     const currentSquares = history[currentMove];
@@ -29,16 +31,29 @@ export default function Game() {
   
       if (move === history.length - 1) {
         return (
-          <span>{description}</span>
+          <span key={move}>{description}</span>
         );
       }
   
       return (
-        <li key={move}>
+        <li key={move} className="list-style">
           <button onClick={() => jumpTo(move)}>{description}</button>
         </li>
       );
     });
+    
+
+    function sortMoves(){
+      const listMoves = [...moves];      
+      listMoves.sort(function (a, b) {
+        return b.key - a.key;
+      });
+
+      setSortedDesc(!sortedDesc);
+      setSortedMoves(listMoves);
+    }
+
+
   
     return (
       <div className="game">
@@ -46,7 +61,10 @@ export default function Game() {
           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
         </div>
         <div className="game-info">
-          <ol>{moves}</ol>
+          <ul>{sortedDesc ? sortedMoves : moves}</ul>
+        </div>
+        <div className="game-option">
+          <button onClick={sortMoves}>Trier mouvements</button>
         </div>
       </div>
     );
