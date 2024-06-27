@@ -31,12 +31,14 @@ export default function Game() {
   
       if (move === history.length - 1) {
         return (
-          <span key={move}>{description}</span>
+          <li key={move} className="list-style">
+            <span key={move}>{description}</span>
+          </li>
         );
       }
   
       return (
-        <li key={move} >
+        <li key={move} className="list-style">
           <button onClick={() => jumpTo(move)}>{description}</button>
         </li>
       );
@@ -56,21 +58,25 @@ export default function Game() {
     const { winner, winningSquares } = calculateWinner(currentSquares);
   
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} winningSquares={winningSquares} />
+      <section className="section-tic-tac-toe">
+        <div className="container">
+            <div className="row game">
+              <div className="game-board col-6">
+                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} winningSquares={winningSquares} />
+              </div>
+              <div className="game-info col-3">
+                <ul>{sortedDesc ? sortedMoves : moves}</ul>
+              </div>
+              <div className="game-option col-2">
+                <button onClick={sortMoves}>Trier mouvements</button>
+              </div>
+          </div>
         </div>
-        <div className="game-info">
-          <ul>{sortedDesc ? sortedMoves : moves}</ul>
-        </div>
-        <div className="game-option">
-          <button onClick={sortMoves}>Trier mouvements</button>
-        </div>
-      </div>
+      </section>
     );
   }
 
-function Square({ value, onSquareClick, isWinningSquare }) {
+  function Square({ value, onSquareClick, isWinningSquare }) {
     return (
       <button 
         className={`square ${isWinningSquare ? 'winning-square' : ''}`} 
